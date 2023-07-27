@@ -1,8 +1,13 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:todo/ui/component/textfield.dart';
 import 'package:todo/ui/component/dialog.dart';
+import 'package:todo/ui/database/MyDatabase.dart';
 import 'package:todo/ui/screen/register/Register_screen.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import '../../provider/AuthProvider.dart';
+import '../home/home_screen.dart';
 
 class login_screen extends StatelessWidget {
   static const String routeName = 'login';
@@ -15,6 +20,7 @@ class login_screen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
+
         height: double.infinity,
         decoration: const BoxDecoration(
             color: Colors.grey,
@@ -27,7 +33,7 @@ class login_screen extends StatelessWidget {
             child: Form(
               key: _formKey,
               child: Column(
-                children: [
+                children: [Text(AppLocalizations.of(context)!.login,style: const TextStyle(fontSize: 20,fontWeight: FontWeight.bold)),
                   SizedBox(
                     height: MediaQuery.of(context).size.height * 0.4,
                   ),
@@ -67,14 +73,23 @@ class login_screen extends StatelessWidget {
                             return;
                           }
                           dialog.dialogAwiat(context, 'loading..');
-                          String massage;
+                          String massage='You have successfully logged in';
                           try {
                             final credential = await FirebaseAuth.instance
                                 .signInWithEmailAndPassword(
                                     email: controllerEmail.text,
                                     password: controllerPassword.text);
 
+                          var UserId= await MyDatabase.readUser(credential.user?.uid??"");
+                            var authProvider=Provider.of<AuthProvider>(context,listen: false);
+                            authProvider.updateUser(UserId!);
+                            print('----------------------------$UserId');
                             dialog.hidedialog(context);
+                            dialog.showMassage(context,massage,
+                                positiveAction: 'ok',postive: (){
+                                  Navigator.pushNamed(context, Home_screen.routeName);
+                                });
+
                           } on FirebaseAuthException catch (e) {
                             if (e.code == 'user-not-found') {
                               dialog.hidedialog(context);
