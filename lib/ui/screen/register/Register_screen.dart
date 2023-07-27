@@ -107,31 +107,31 @@ class Register_screen extends StatelessWidget {
                             try {
                               final credential = await FirebaseAuth.instance
                                   .createUserWithEmailAndPassword(
-                                      email: controllerEmail.text,
-                                      password: controllerPassword.text);
+                                  email: controllerEmail.text,
+                                  password: controllerPassword.text);
                               var myUser=MyUser.User(id: credential.user?.uid,email: controllerEmail.text,name: controllerName.text);
                               MyDatabase.addUser(myUser);
-                              
+
                               var authProvider=Provider.of<AuthProvider>(context,listen: false);
                               authProvider.updateUser(myUser);
                               dialog.hidedialog(context);
                               dialog.showMassage(context, massgeError,
                                   positiveAction: 'ok',postive: (){
-                                Navigator.pushNamed(context, Home_screen.routeName);
+                                    Navigator.pushNamed(context, Home_screen.routeName);
                                   });
                             } on FirebaseAuthException catch (e) {
                               if (e.code == 'weak-password') {
                                 dialog.hidedialog(context);
                                 massgeError =
-                                    'The password provided is too weak.';
+                                'The password provided is too weak.';
                                 dialog.showMassage(context, massgeError,
                                     negativeAction: 'Try Again', negative: () {
-                                  Register_screen();
-                                });
+                                      Register_screen();
+                                    });
                               } else if (e.code == 'email-already-in-use') {
                                 dialog.hidedialog(context);
                                 massgeError =
-                                    'The account already exists for that email.';
+                                'The account already exists for that email.';
                                 dialog.showMassage(context, massgeError,
                                     positiveAction: 'ok');
                               }
@@ -147,7 +147,7 @@ class Register_screen extends StatelessWidget {
                         },
                         child: const Text('sign in',
                             style:
-                                TextStyle(fontSize: 16, color: Colors.black54)))
+                            TextStyle(fontSize: 16, color: Colors.black54)))
                   ],
                 ),
               ),
@@ -165,3 +165,4 @@ class Register_screen extends StatelessWidget {
     return (!regex.hasMatch(value)) ? false : true;
   }
 }
+

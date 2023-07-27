@@ -1,4 +1,4 @@
-import 'package:flutter/cupertino.dart';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:todo/ui/database/model/task.dart';
@@ -55,7 +55,7 @@ class _AddTaskState extends State<AddTask> {
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(30),
                     color:
-                        widget.task.done == true ? Colors.green : Colors.blue),
+                    widget.task.done == true ? Colors.green : Colors.blue),
               ),
               Expanded(
                 child: Column(
@@ -83,24 +83,24 @@ class _AddTaskState extends State<AddTask> {
               ),
               widget.task.done == true
                   ? const Text(
-                      'Done!',
-                      style: TextStyle(fontSize: 20, color: Colors.green),
-                    )
+                'Done!',
+                style: TextStyle(fontSize: 20, color: Colors.green),
+              )
                   : ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: widget.task.done == true
-                            ? Colors.green
-                            : Colors.blue,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                      ),
-                      onPressed: () {
-                         widget.task.done = true;
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: widget.task.done == true
+                        ? Colors.green
+                        : Colors.blue,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                  ),
+                  onPressed: () {
+                    widget.task.done = true;
 
-                        setState(() {});
-                      },
-                      child: Icon(Icons.done)),
+                    setState(() {});
+                  },
+                  child: Icon(Icons.done)),
               const SizedBox(
                 width: 30,
               )
@@ -116,8 +116,9 @@ class _AddTaskState extends State<AddTask> {
 
     dialog.showMassage(context, 'Do you want to delete task?',
         positiveAction: 'ok', negativeAction: 'cancel', postive: () async {
-      await MyDatabase.deleteTask(
-          provider.AccountUser?.id ?? '', widget.task.Id ?? "");
-    });
+          await MyDatabase.deleteTask(
+              provider.AccountUser?.id ?? '', widget.task.Id ?? "");
+        });
   }
 }
+

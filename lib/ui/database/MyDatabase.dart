@@ -7,10 +7,10 @@ import 'model/User.dart';
 class MyDatabase {
   static CollectionReference<User> getUserCollection() {
     return FirebaseFirestore.instance.collection('users').withConverter(
-          fromFirestore: (snapshot, options) =>
-              User.fromfirestore(snapshot.data()!),
-          toFirestore: (user, options) => user.tofirestore(),
-        );
+      fromFirestore: (snapshot, options) =>
+          User.fromfirestore(snapshot.data()!),
+      toFirestore: (user, options) => user.tofirestore(),
+    );
   }
 
   static CollectionReference<tasks> getTaskCollection(String uID) {
@@ -18,10 +18,10 @@ class MyDatabase {
         .doc(uID)
         .collection(tasks.collectionName)
         .withConverter(
-          fromFirestore: (snapshot, options) =>
-              tasks.fromFireStore(snapshot.data()!),
-          toFirestore: (task, options) => task.tofirestore(),
-        );
+      fromFirestore: (snapshot, options) =>
+          tasks.fromFireStore(snapshot.data()!),
+      toFirestore: (task, options) => task.tofirestore(),
+    );
   }
 
   static Future<void> addUser(User user) {
@@ -52,3 +52,4 @@ class MyDatabase {
 
 
 }
+

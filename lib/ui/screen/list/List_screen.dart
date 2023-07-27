@@ -19,36 +19,36 @@ class _List_screenState extends State<List_screen> {
   Widget build(BuildContext context) {
     var provider = Provider.of<AuthProvider>(context, listen: false);
     return Container(color: Colors.grey,
-     child:Column(
-       children: [DatePicker(
-         DateTime.now(),
-         initialSelectedDate: seletedDate,
+        child:Column(
+          children: [DatePicker(
+            DateTime.now(),
+            initialSelectedDate: seletedDate,
 
-         selectionColor: Colors.blue,
-         selectedTextColor: Colors.white,
-         onDateChange: (date) {
-           // New date selected
-           setState(() {
-             seletedDate = date;
-           });
-         },
-       ),
-         Expanded(
-           child: StreamBuilder(stream: MyDatabase.getTask(provider.AccountUser?.id??"",Mydate.datenow(seletedDate).millisecondsSinceEpoch),builder: (context, snapshot) {
-             if(snapshot.hasError){
-               return Text(snapshot.error.toString());
-             }if(snapshot.connectionState==ConnectionState.waiting){
-               return const Center(child: CircularProgressIndicator());
-             }
-             var listTask=snapshot.data?.docs.map((doc) => doc.data()).toList();
-             return ListView.builder(itemCount: listTask?.length,itemBuilder: (context, index) {
-               return AddTask(listTask![index]);
-             },);
+            selectionColor: Colors.blue,
+            selectedTextColor: Colors.white,
+            onDateChange: (date) {
+              // New date selected
+              setState(() {
+                seletedDate = date;
+              });
+            },
+          ),
+            Expanded(
+              child: StreamBuilder(stream: MyDatabase.getTask(provider.AccountUser?.id??"",Mydate.datenow(seletedDate).millisecondsSinceEpoch),builder: (context, snapshot) {
+                if(snapshot.hasError){
+                  return Text(snapshot.error.toString());
+                }if(snapshot.connectionState==ConnectionState.waiting){
+                  return const Center(child: CircularProgressIndicator());
+                }
+                var listTask=snapshot.data?.docs.map((doc) => doc.data()).toList();
+                return ListView.builder(itemCount: listTask?.length,itemBuilder: (context, index) {
+                  return AddTask(listTask![index]);
+                },);
 
-           },),
-         ),
-       ],
-     )
+              },),
+            ),
+          ],
+        )
     );
   }
 }

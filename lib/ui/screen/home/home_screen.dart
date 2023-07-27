@@ -41,7 +41,7 @@ class _Home_screenState extends State<Home_screen> {
                     const Text(
                       'Add new Task',
                       style:
-                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                      TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                       textAlign: TextAlign.center,
                     ),
                     Padding(
@@ -105,7 +105,7 @@ class _Home_screenState extends State<Home_screen> {
                   ],
                 );
               }
-              );
+          );
 
           const SizedBox(
             height: 50,
@@ -157,15 +157,16 @@ class _Home_screenState extends State<Home_screen> {
 
   }
 
- void showMyDatePicker()  async {
-   selectDate= await showDatePicker(
+  void showMyDatePicker()  async {
+    selectDate= await showDatePicker(
         context: context,
         initialDate: selectDate,
         firstDate: DateTime.now(),
         lastDate: DateTime.now().add(const Duration(days: 365)))??selectDate;
 
-   setState(() {
+    setState(() {
 
-   });
+    });
   }
 }
+

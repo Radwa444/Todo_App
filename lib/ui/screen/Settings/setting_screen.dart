@@ -50,12 +50,12 @@ class _Settings_screenState extends State<Settings_screen> {
                       value: Selected,
                       items: listlanguages
                           .map((language) => DropdownMenuItem(
-                                value: language,
-                                child: Text(
-                                  language,
-                                  style: TextStyle(fontSize: 20),
-                                ),
-                              ))
+                        value: language,
+                        child: Text(
+                          language,
+                          style: TextStyle(fontSize: 20),
+                        ),
+                      ))
                           .toList(),
                       onChanged: ( language) {
                         setState(() {
@@ -76,3 +76,4 @@ class _Settings_screenState extends State<Settings_screen> {
         ));
   }
 }
+
